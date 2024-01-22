@@ -26,7 +26,9 @@ const Navbar = () => {
     </ul>
   </div>
   <div className="navbar-end">
-    <button className="btn bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white">Login</button>
+<Link to="/login">
+<button className="btn bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white">Login</button>
+</Link>
   </div>
 </div> 
 </div>

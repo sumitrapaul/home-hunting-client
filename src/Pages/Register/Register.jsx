@@ -1,43 +1,70 @@
-
-
+import { useForm } from "react-hook-form";
+import { Link } from "react-router-dom";
 
 const Register = () => {
-    return (
-        <div>
-             {/* <div className="hero min-h-screen">
+  const {
+    register,
+    formState: { errors },
+  } = useForm();
+
+  return (
+    <div>
+      <div className="hero min-h-screen">
         <div className="hero-content flex-col">
           <div className="card shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
-            <form onSubmit={handleSubmit(onSubmit)} className="card-body">
-            <h1 className="text-3xl font-bold mb-4">Register now!</h1>
+            <form className="card-body">
+              <h1 className="text-3xl font-bold mb-4">Register now!</h1>
               <div className="form-control">
                 <label className="label">
-                  <span className="label-text">Name</span>
+                  <span className="label-text">Full Name</span>
                 </label>
                 <input
                   type="text"
-                  {...register("name", { required: true })}
-                  name="name"
-                  placeholder="name"
+                  {...register("fullname", { required: true })}
+                  name="fullname"
+                  placeholder="Full Name"
                   className="input input-bordered"
                 />
-                {errors.name && (
+                {errors.fullname && (
                   <span className="text-red-600">This field is required</span>
                 )}
               </div>
               <div className="form-control">
+                <label
+                  htmlFor=""
+                  className="text-md font-semibold text-gray-800 px-1 -mb-3"
+                >
+                  Role
+                </label>
+
+                <select
+                  className="text-input bg-gray-300 px-5 py-2 rounded"
+                  {...register("role")}
+                >
+                  <option value="House Owner">House Owner</option>
+                  <option value="House Renter">House Renter</option>
+                </select>
+              </div>
+
+              <div className="form-control">
                 <label className="label">
-                  <span className="label-text">PhotoURL</span>
+                  <span className="label-text">Phone Number</span>
                 </label>
                 <input
-                  type="text"
-                  {...register("photoURL", { required: true })}
-                  placeholder="photo url"
+                  type="tel"
+                  {...register("phone", { required: true })}
+                  name="phone"
+                  pattern="[0-9]{11}"
+                  placeholder="Phone Number"
                   className="input input-bordered"
                 />
-                {errors.photoURL && (
-                  <span className="text-red-600">This field is required</span>
+                {errors.phone && (
+                  <span className="text-red-600">
+                    Phone number field is required
+                  </span>
                 )}
               </div>
+
               <div className="form-control">
                 <label className="label">
                   <span className="label-text">Email</span>
@@ -99,9 +126,9 @@ const Register = () => {
             </p>
           </div>
         </div>
-      </div>  */}
-        </div>
-    );
+      </div>
+    </div>
+  );
 };
 
 export default Register;
