@@ -1,15 +1,40 @@
 /* eslint-disable no-unused-vars */
 
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 
 const AddHome = () => {
-    const { register } = useForm();
-
+    const { register, handleSubmit } = useForm();
+    const navigate = useNavigate();
     const handleAdd = (_id) => {
         
           document.getElementById("my_modal_1").showModal();
         
+      };
+
+      const onSubmit = (result) => {
+    
+        fetch("http://localhost:5000/addHome", {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(result),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            
+      Swal.fire({
+        position: "top-end",
+        icon: "success",
+        title: "Home added successfully",
+        showConfirmButton: false,
+        timer: 1500
+      });
+            navigate("/");
+          });
       };
 
     return (
@@ -25,7 +50,7 @@ const AddHome = () => {
 
             <dialog id="my_modal_1" className="modal">
               <div className="modal-box">
-                <form
+                <form onSubmit={handleSubmit(onSubmit)}
                   className="flex flex-col gap-3"
                 >
                   <label
@@ -74,7 +99,7 @@ const AddHome = () => {
                   </label>
 
                   <input
-                    type="text"
+                    type="number"
                     
                     {...register("bedrooms")}
                     className="border border-purple-700 text-input px-5 py-2 rounded"
@@ -88,7 +113,7 @@ const AddHome = () => {
                   </label>
 
                   <input
-                    type="text"
+                    type="number"
                     {...register("bathrooms")}
                     className="border border-purple-700 text-input px-5 py-2 rounded"
                   />
@@ -163,7 +188,7 @@ const AddHome = () => {
 
                   <input
                     type="submit"
-                    value="Submit Application"
+                    value="Submit"
                     className="btn bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white"
                   />
                 </form>

@@ -11,6 +11,7 @@ import Login from './Pages/Login/Login';
 import Register from './Pages/Register/Register';
 import Dashboard from './Layout/Dashboard';
 import AddHome from './Pages/Dashboard/AddHome/AddHome';
+import AllHomes from './Pages/Dashboard/AllHomes/AllHomes';
 
 const router = createBrowserRouter([
   {
@@ -38,6 +39,10 @@ const router = createBrowserRouter([
       {
         path:'addHome',
         element:<AddHome></AddHome>
+      },
+      {
+        path:'allHomes',
+        element:<AllHomes></AllHomes>
       },
     ]
     }
