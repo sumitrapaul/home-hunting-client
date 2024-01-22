@@ -1,13 +1,51 @@
+/* eslint-disable no-unused-vars */
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 
 const Login = () => {
 
     const {
         register,
+        handleSubmit,
         formState: { errors },
       } = useForm();
+const navigate = useNavigate()
+      const onSubmit =async (data) => {
+
+        const response = await fetch("http://localhost:5000/login", {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(data),
+        })
+    
+        if(!response.ok){
+           
+          Swal.fire({
+            position: "top-end",
+            icon: "error",
+            title: "User login failed",
+            showConfirmButton: false,
+            timer: 1500
+          });
+          return;
+        }
+          const result= response.json()
+    
+          Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "Users login successfully",
+                showConfirmButton: false,
+                timer: 1500
+              });
+            navigate("/");
+            
+        
+      };
 
     return (
         <div>
@@ -15,7 +53,7 @@ const Login = () => {
       <div className="hero min-h-screen">
         <div className="hero-content flex-col">
           <div className="card shrink-0 w-[400px] md:w-[500px] mx-auto shadow-2xl bg-base-100">
-            <form className="card-body">
+            <form onSubmit={handleSubmit(onSubmit)} className="card-body">
               <h1 className="text-3xl font-bold mb-4 text-[#7e22ce] text-center">Login now</h1>
               
 

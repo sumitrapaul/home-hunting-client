@@ -1,8 +1,10 @@
+
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Navbar = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+const navigate=useNavigate()
+const [isLoggedIn,setIsLoggedIn]=useState(false);
   const navLinks = (
     <>
       <li className="lg:text-2xl font-bold">
@@ -15,7 +17,9 @@ const Navbar = () => {
   );
 
   const handleLogout = () => {
-    setIsLoggedIn(true);
+    localStorage.removeItem('token')
+    setIsLoggedIn(false)
+    navigate('/');
   };
   return (
     <div>

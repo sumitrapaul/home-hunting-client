@@ -11,20 +11,30 @@ const Register = () => {
   } = useForm();
   const navigate = useNavigate();
 
-  const onSubmit = (data) => {
+  const onSubmit =async (data) => {
 
-    fetch("http://localhost:5000/register", {
+    const response = await fetch("http://localhost:5000/register", {
       method: "POST",
       headers: {
         "content-type": "application/json",
       },
       body: JSON.stringify(data),
     })
-      .then((res) => res.json())
 
-      .then((result) => {
-      
-        Swal.fire({
+    if(!response.ok){
+       
+      Swal.fire({
+        position: "top-end",
+        icon: "error",
+        title: "Registration failed",
+        showConfirmButton: false,
+        timer: 1500
+      });
+      return;
+    }
+      const result= response.json()
+
+      Swal.fire({
             position: "top-end",
             icon: "success",
             title: "Users created successfully",
@@ -33,7 +43,7 @@ const Register = () => {
           });
         navigate("/");
         
-      });
+    
   };
 
   return (
