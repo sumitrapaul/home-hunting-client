@@ -1,19 +1,48 @@
+/* eslint-disable no-unused-vars */
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const Register = () => {
   const {
     register,
+    handleSubmit,
     formState: { errors },
   } = useForm();
+  const navigate = useNavigate();
+
+  const onSubmit = (data) => {
+
+    fetch("http://localhost:5000/register", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+      .then((res) => res.json())
+
+      .then((result) => {
+      
+        Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "Users created successfully",
+            showConfirmButton: false,
+            timer: 1500
+          });
+        navigate("/");
+        
+      });
+  };
 
   return (
     <div>
       <div className="hero min-h-screen">
         <div className="hero-content flex-col">
-          <div className="card shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
-            <form className="card-body">
-              <h1 className="text-3xl font-bold mb-4">Register now!</h1>
+          <div className="card shrink-0 w-[400px] md:w-[500px] mx-auto shadow-2xl bg-base-100">
+            <form onSubmit={handleSubmit(onSubmit)} className="card-body">
+              <h1 className="text-3xl font-bold mb-4 text-[#7e22ce] text-center">Register now</h1>
               <div className="form-control">
                 <label className="label">
                   <span className="label-text">Full Name</span>
@@ -30,15 +59,12 @@ const Register = () => {
                 )}
               </div>
               <div className="form-control">
-                <label
-                  htmlFor=""
-                  className="text-md font-semibold text-gray-800 px-1 -mb-3"
-                >
-                  Role
+              <label className="label">
+                  <span className="label-text">Role</span>
                 </label>
 
                 <select
-                  className="text-input bg-gray-300 px-5 py-2 rounded"
+                  className="text-input border px-5 py-2 rounded"
                   {...register("role")}
                 >
                   <option value="House Owner">House Owner</option>
@@ -54,13 +80,13 @@ const Register = () => {
                   type="tel"
                   {...register("phone", { required: true })}
                   name="phone"
-                  pattern="[0-9]{11}"
+                  pattern="(\+8801[1-9][0-9]{8}|01[1-9][0-9]{8})"
                   placeholder="Phone Number"
                   className="input input-bordered"
                 />
                 {errors.phone && (
                   <span className="text-red-600">
-                    Phone number field is required
+                    Bangladeshi Phone number field is required
                   </span>
                 )}
               </div>
@@ -110,7 +136,7 @@ const Register = () => {
               </div>
               <div className="form-control mt-6">
                 <input
-                  className="btn btn-primary"
+                  className="btn bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white"
                   type="submit"
                   value="Register"
                 />
@@ -119,7 +145,7 @@ const Register = () => {
             <p className="text-center">
               <small>
                 Have an account? Please{" "}
-                <Link className="text-blue-700 text-2xl font-bold" to="/login">
+                <Link className="text-[#7e22ce] text-2xl font-bold" to="/login">
                   Login
                 </Link>
               </small>

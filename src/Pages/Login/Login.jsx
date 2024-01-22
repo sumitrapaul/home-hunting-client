@@ -14,9 +14,9 @@ const Login = () => {
            <div>
       <div className="hero min-h-screen">
         <div className="hero-content flex-col">
-          <div className="card shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
+          <div className="card shrink-0 w-[400px] md:w-[500px] mx-auto shadow-2xl bg-base-100">
             <form className="card-body">
-              <h1 className="text-3xl font-bold mb-4">Login now!</h1>
+              <h1 className="text-3xl font-bold mb-4 text-[#7e22ce] text-center">Login now</h1>
               
 
               <div className="form-control">
@@ -64,16 +64,16 @@ const Login = () => {
               </div>
               <div className="form-control mt-6">
                 <input
-                  className="btn btn-primary"
+                  className="btn bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white"
                   type="submit"
-                  value="Register"
+                  value="Login"
                 />
               </div>
             </form>
             <p className="text-center">
               <small>
                 New here? Please{" "}
-                <Link className="text-blue-700 text-2xl font-bold" to="/register">
+                <Link className="text-[#7e22ce] text-2xl font-bold" to="/register">
                   Register
                 </Link>
               </small>
