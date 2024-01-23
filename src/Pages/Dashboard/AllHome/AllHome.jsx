@@ -1,5 +1,6 @@
-
-
+import { Link } from "react-router-dom";
+import { RiDeleteBin6Line } from "react-icons/ri";
+import { FaEdit } from "react-icons/fa";
 /* eslint-disable react/prop-types */
 const AllHome = ({home}) => {
 
@@ -18,8 +19,12 @@ const AllHome = ({home}) => {
        <td>{rent}</td>
        <td>{phone}</td>
        <td>{description}</td>
-       <td><button className="btn bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white">Edit</button></td>
-       <td><button className="btn bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white">Delete</button></td>
+       <td><Link to={`/dashboard/updateHome/${_id}`}><button className="btn bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white text-2xl">
+        <FaEdit></FaEdit></button>
+        </Link></td>
+       <td><button className="btn bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white text-2xl">
+       <RiDeleteBin6Line></RiDeleteBin6Line>
+        </button></td>
         </tr>
        
     );

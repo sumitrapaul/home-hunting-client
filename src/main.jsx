@@ -1,71 +1,70 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import './index.css'
-import {
-  createBrowserRouter,
-  RouterProvider,
-} from "react-router-dom";
-import Layout from './Layout/Layout';
-import Home from './Pages/Home/Home';
-import Login from './Pages/Login/Login';
-import Register from './Pages/Register/Register';
-import Dashboard from './Layout/Dashboard';
-import AddHome from './Pages/Dashboard/AddHome/AddHome';
-import AllHomes from './Pages/Dashboard/AllHomes/AllHomes';
-import Booking from './Pages/Dashboard/Booking/Booking';
-import Details from './Pages/Details/Details';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Layout from "./Layout/Layout";
+import Home from "./Pages/Home/Home";
+import Login from "./Pages/Login/Login";
+import Register from "./Pages/Register/Register";
+import Dashboard from "./Layout/Dashboard";
+import AddHome from "./Pages/Dashboard/AddHome/AddHome";
+import AllHomes from "./Pages/Dashboard/AllHomes/AllHomes";
+import Booking from "./Pages/Dashboard/Booking/Booking";
+import Details from "./Pages/Details/Details";
+import UpdateHome from "./Pages/UpdateHome/UpdateHome";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Layout/>,
+    element: <Layout />,
     children: [
       {
         path: "/",
-        element: <Home/>,
+        element: <Home />,
       },
       {
         path: "/home/:_id",
-        element: (
-          
-            <Details></Details>
-          
-        ),
+        element: <Details></Details>,
         loader: ({ params }) =>
           `http://localhost:5000/homedetails/${params._id}`,
       },
       {
         path: "/login",
-        element: <Login/>,
+        element: <Login />,
       },
       {
         path: "/register",
-        element: <Register/>,
+        element: <Register />,
       },
     ],
   },
   {
-    path:'/dashboard',
-    element:<Dashboard></Dashboard>,
-    children:[
+    path: "/dashboard",
+    element: <Dashboard></Dashboard>,
+    children: [
       {
-        path:'addHome',
-        element:<AddHome></AddHome>
+        path: "addHome",
+        element: <AddHome></AddHome>,
       },
       {
-        path:'allHomes',
-        element:<AllHomes></AllHomes>
+        path: "allHomes",
+        element: <AllHomes></AllHomes>,
       },
       {
-        path:'booking',
-        element:<Booking></Booking>
+        path: "updateHome/:id",
+        element: <UpdateHome></UpdateHome>,
+        loader: ({ params }) => fetch (`http://localhost:5000/updateHome/${params.id}`),
       },
-    ]
-    }
+      {
+        path: "booking",
+        element: <Booking></Booking>,
+      },
+    ],
+  },
 ]);
 
-ReactDOM.createRoot(document.getElementById('root')).render(
+ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <RouterProvider router={router} />
-  </React.StrictMode>,
-)
+  </React.StrictMode>
+);
