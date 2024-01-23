@@ -13,7 +13,7 @@ const UpdateHome = () => {
         const userEmail = localStorage.getItem('userEmail')
         const dataSend={...data, userEmail}
         console.log(dataSend)
-        const response =await fetch(`http://localhost:5000/updateHome/${id}`, {
+        const response =await fetch(`https://home-hunting-server.vercel.app/updateHome/${id}`, {
           method: "PUT",
           headers: {
             "content-type": "application/json",

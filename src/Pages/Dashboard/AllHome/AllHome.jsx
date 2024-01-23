@@ -1,8 +1,7 @@
 import { Link } from "react-router-dom";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { FaEdit } from "react-icons/fa";
-// import Swal from "sweetalert2";
-// import { useState } from "react";
+
 /* eslint-disable react/prop-types */
 const AllHome = ({home, handleDelete}) => {
 

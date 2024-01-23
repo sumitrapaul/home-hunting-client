@@ -12,7 +12,7 @@ const Register = () => {
   const navigate = useNavigate();
 
   const onSubmit = (data) => {
-    fetch("http://localhost:5000/register", {
+    fetch("https://home-hunting-server.vercel.app/register", {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -25,6 +25,8 @@ const Register = () => {
         if (result.token) {
           localStorage.setItem("userEmail", data.email);
           localStorage.setItem("userRole", data.role);
+          localStorage.setItem("userName", data.name);
+          localStorage.setItem("userPhone", data.phone);
           console.log(data.role);
 
           localStorage.setItem("token", result.token);

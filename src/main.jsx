@@ -12,6 +12,7 @@ import AllHomes from "./Pages/Dashboard/AllHomes/AllHomes";
 import Booking from "./Pages/Dashboard/Booking/Booking";
 import Details from "./Pages/Details/Details";
 import UpdateHome from "./Pages/UpdateHome/UpdateHome";
+import PrivateRoute from "./Routes/PrivateRoute";
 
 const router = createBrowserRouter([
   {
@@ -24,9 +25,9 @@ const router = createBrowserRouter([
       },
       {
         path: "/home/:_id",
-        element: <Details></Details>,
+        element: <PrivateRoute><Details></Details></PrivateRoute>,
         loader: ({ params }) =>
-          `http://localhost:5000/homedetails/${params._id}`,
+          `https://home-hunting-server.vercel.app/homedetails/${params._id}`,
       },
       {
         path: "/login",
@@ -53,7 +54,7 @@ const router = createBrowserRouter([
       {
         path: "updateHome/:id",
         element: <UpdateHome></UpdateHome>,
-        loader: ({ params }) => fetch (`http://localhost:5000/updateHome/${params.id}`),
+        loader: ({ params }) => fetch (`https://home-hunting-server.vercel.app/updateHome/${params.id}`),
       },
       {
         path: "booking",

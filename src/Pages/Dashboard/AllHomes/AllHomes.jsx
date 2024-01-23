@@ -10,7 +10,7 @@ const AllHomes = () => {
   
   useEffect(() => {
     const fetchHome = () => {
-      fetch("http://localhost:5000/allHomes", {
+      fetch("https://home-hunting-server.vercel.app/allHomes", {
         headers: {
           Authorization: `Bearer ${userEmail}`,
         },
@@ -37,7 +37,7 @@ const AllHomes = () => {
           confirmButtonText: "Yes, delete it!",
         }).then((result) => {
           if (result.isConfirmed) {
-            fetch(`http://localhost:5000/deleteHome/${_id}`, {
+            fetch(`https://home-hunting-server.vercel.app/deleteHome/${_id}`, {
               method: "DELETE",
             })
               .then((res) => res.json())
