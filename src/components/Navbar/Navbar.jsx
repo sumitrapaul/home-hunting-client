@@ -1,10 +1,18 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 
-import { useState } from "react";
+// import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 const Navbar = () => {
 const navigate=useNavigate()
-const [isLoggedIn,setIsLoggedIn]=useState(false);
+
+let storedEmail;
+if(localStorage.getItem('userEmail')){
+   storedEmail =localStorage.getItem('userEmail')
+   
+}
+
+
   const navLinks = (
     <>
       <li className="lg:text-2xl font-bold">
@@ -16,9 +24,12 @@ const [isLoggedIn,setIsLoggedIn]=useState(false);
     </>
   );
 
+
+
   const handleLogout = () => {
+    localStorage.removeItem('userEmail')
+    localStorage.removeItem('userRole')
     localStorage.removeItem('token')
-    setIsLoggedIn(false)
     navigate('/');
   };
   return (
@@ -59,13 +70,17 @@ const [isLoggedIn,setIsLoggedIn]=useState(false);
           <ul className="menu menu-horizontal px-1">{navLinks}</ul>
         </div>
         <div className="navbar-end">
-          {isLoggedIn ? (
+          {storedEmail ? (
+            <>
+            <p className="font-bold">{storedEmail}</p>
             <button
               onClick={handleLogout}
               className="btn bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white"
             >
               Logout
             </button>
+            </>
+            
           ) : (
             <Link to="/login">
               <button className="btn bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white">

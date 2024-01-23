@@ -12,40 +12,43 @@ const Login = () => {
         formState: { errors },
       } = useForm();
 const navigate = useNavigate()
-      const onSubmit =async (data) => {
-
-        const response = await fetch("http://localhost:5000/login", {
-          method: "POST",
-          headers: {
-            "content-type": "application/json",
-          },
-          body: JSON.stringify(data),
-        })
-    
-        if(!response.ok){
-           
-          Swal.fire({
-            position: "top-end",
-            icon: "error",
-            title: "User login failed",
-            showConfirmButton: false,
-            timer: 1500
-          });
-          return;
-        }
-          const result= response.json()
-    
-          Swal.fire({
-                position: "top-end",
-                icon: "success",
-                title: "Users login successfully",
-                showConfirmButton: false,
-                timer: 1500
-              });
-            navigate("/");
-            
-        
-      };
+     
+    const onSubmit = (data) => {
+         fetch("http://localhost:5000/login", {
+              method: "POST",
+              headers: {
+                "content-type": "application/json",
+              },
+              body: JSON.stringify(data),
+            })
+            .then(res => res.json())
+            .then(result => {
+              console.log(result)
+              if(result.token){
+                localStorage.setItem('userEmail',data.email)
+                localStorage.setItem('userRole',result.role)
+                console.log(result.role)
+          
+                localStorage.setItem('token',result.token)
+                Swal.fire({
+                      position: "top-end",
+                      icon: "success",
+                      title: "Users login successfully",
+                      showConfirmButton: false,
+                      timer: 1500
+                    });
+                  navigate("/");
+              }else{
+                Swal.fire({
+                        position: "top-end",
+                        icon: "error",
+                        title: "User login failed",
+                        showConfirmButton: false,
+                        timer: 1500
+                      });
+              }
+            })
+      }
 
     return (
         <div>

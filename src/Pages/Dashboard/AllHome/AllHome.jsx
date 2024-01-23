@@ -1,3 +1,5 @@
+
+
 /* eslint-disable react/prop-types */
 const AllHome = ({home}) => {
 
@@ -16,6 +18,7 @@ const AllHome = ({home}) => {
        <td>{rent}</td>
        <td>{phone}</td>
        <td>{description}</td>
+       
         </tr>
        
     );

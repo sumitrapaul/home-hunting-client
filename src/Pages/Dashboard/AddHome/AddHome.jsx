@@ -9,19 +9,21 @@ const AddHome = () => {
     const { register, handleSubmit } = useForm();
     const navigate = useNavigate();
     const handleAdd = (_id) => {
-        
+      const userEmail = localStorage.getItem('userEmail')
           document.getElementById("my_modal_1").showModal();
+          console.log(userEmail)
         
       };
 
       const onSubmit = (result) => {
-    
+        const userEmail = localStorage.getItem('userEmail')
+        const dataSend={...result, userEmail}
         fetch("http://localhost:5000/addHome", {
           method: "POST",
           headers: {
             "content-type": "application/json",
           },
-          body: JSON.stringify(result),
+          body: JSON.stringify(dataSend),
         })
           .then((res) => res.json())
           .then((data) => {
@@ -53,6 +55,7 @@ const AddHome = () => {
                 <form onSubmit={handleSubmit(onSubmit)}
                   className="flex flex-col gap-3"
                 >
+                
                   <label
                     htmlFor=""
                     className="text-md font-semibold text-gray-800 px-1 -mb-3"

@@ -12,6 +12,8 @@ import Register from './Pages/Register/Register';
 import Dashboard from './Layout/Dashboard';
 import AddHome from './Pages/Dashboard/AddHome/AddHome';
 import AllHomes from './Pages/Dashboard/AllHomes/AllHomes';
+import Booking from './Pages/Dashboard/Booking/Booking';
+import Details from './Pages/Details/Details';
 
 const router = createBrowserRouter([
   {
@@ -21,6 +23,16 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home/>,
+      },
+      {
+        path: "/home/:_id",
+        element: (
+          
+            <Details></Details>
+          
+        ),
+        loader: ({ params }) =>
+          `http://localhost:5000/homedetails/${params._id}`,
       },
       {
         path: "/login",
@@ -43,6 +55,10 @@ const router = createBrowserRouter([
       {
         path:'allHomes',
         element:<AllHomes></AllHomes>
+      },
+      {
+        path:'booking',
+        element:<Booking></Booking>
       },
     ]
     }
