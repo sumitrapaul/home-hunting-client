@@ -18,7 +18,8 @@ const AllHome = ({home}) => {
        <td>{rent}</td>
        <td>{phone}</td>
        <td>{description}</td>
-       
+       <td><button className="btn bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white">Edit</button></td>
+       <td><button className="btn bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white">Delete</button></td>
         </tr>
        
     );

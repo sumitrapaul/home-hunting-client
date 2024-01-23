@@ -40,6 +40,8 @@ const AllHomes = () => {
               <th>Rent</th>
               <th>Phone</th>
               <th>Description</th>
+              <th>Action</th>
+              <th>Action</th>
             </tr>
           </thead>
           <tbody>

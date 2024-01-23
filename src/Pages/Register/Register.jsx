@@ -12,7 +12,6 @@ const Register = () => {
   const navigate = useNavigate();
 
   const onSubmit = (data) => {
-
     fetch("http://localhost:5000/register", {
       method: "POST",
       headers: {
@@ -20,44 +19,39 @@ const Register = () => {
       },
       body: JSON.stringify(data),
     })
-    .then(res => res.json())
-    .then(result => {
-      console.log(result)
-      if(result.token){
-        localStorage.setItem('userEmail',data.email)
-        localStorage.setItem('userRole',data.role)
-        console.log(data.role)
-  
-        localStorage.setItem('token',result.token)
-        Swal.fire({
-              position: "top-end",
-              icon: "success",
-              title: "User created successfully",
-              showConfirmButton: false,
-              timer: 1500
-            });
-            if(data.role == 'House Owner'){
-              navigate('/dashboard/addHome')
-            }else if(data.role == 'House Renter'){
-              navigate('/dashboard/booking')
-            }else{
-              navigate("/");
-            }
-      }else{
-        Swal.fire({
-                position: "top-end",
-                icon: "error",
-                title: "Registration failed",
-                showConfirmButton: false,
-                timer: 1500
-              });
-      }
-    })
+      .then((res) => res.json())
+      .then((result) => {
+        console.log(result);
+        if (result.token) {
+          localStorage.setItem("userEmail", data.email);
+          localStorage.setItem("userRole", data.role);
+          console.log(data.role);
 
-         
-        
-        
-    
+          localStorage.setItem("token", result.token);
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "User created successfully",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          if (data.role == "House Owner") {
+            navigate("/dashboard/addHome");
+          } else if (data.role == "House Renter") {
+            navigate("/dashboard/booking");
+          } else {
+            navigate("/");
+          }
+        } else {
+          Swal.fire({
+            position: "top-end",
+            icon: "error",
+            title: "Registration failed",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
+      });
   };
 
   return (
@@ -66,7 +60,9 @@ const Register = () => {
         <div className="hero-content flex-col">
           <div className="card shrink-0 w-[400px] md:w-[500px] mx-auto shadow-2xl bg-base-100">
             <form onSubmit={handleSubmit(onSubmit)} className="card-body">
-              <h1 className="text-3xl font-bold mb-4 text-[#7e22ce] text-center">Register now</h1>
+              <h1 className="text-3xl font-bold mb-4 text-[#7e22ce] text-center">
+                Register now
+              </h1>
               <div className="form-control">
                 <label className="label">
                   <span className="label-text">Full Name</span>
@@ -83,7 +79,7 @@ const Register = () => {
                 )}
               </div>
               <div className="form-control">
-              <label className="label">
+                <label className="label">
                   <span className="label-text">Role</span>
                 </label>
 

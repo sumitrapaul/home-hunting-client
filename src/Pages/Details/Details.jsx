@@ -24,17 +24,30 @@ const [home, setHome] = useState(null)
       </div>
 
       <div className="card card-compact bg-slate-200 glass shadow-xl w-full max-w-7xl mx-auto">
-        <div className="flex items-start px-4 pt-4">
-          
-        </div>
+        
         <div className="card-body">
-          <h2 className="card-title">{home?.title}</h2>
+          <h2 className="card-title">{home?.name}</h2>
           <div className="flex">
-            <h4 className="font-bold mr-7">Salary: {home?.salary}</h4>
-            <h4 className="font-bold">Applicants: {home?.applicants}</h4>
+            <h4 className="font-bold mr-7">Bedrooms :{home?.bedrooms}</h4>
+            <h4 className="font-bold">Bathrooms :{home?.bathrooms}</h4>
           </div>
-          <p>{home?.description}</p>
-          
+          <div className="flex">
+            <h4 className="font-bold mr-7">Roomsize: {home?.roomsize}</h4>
+            <h4 className="font-bold">Availity: {home?.availity}</h4>
+          </div>
+          <div className="flex">
+            <h4 className="font-bold mr-7">Rent per month: {home?.rent}</h4>
+            <h4 className="font-bold">Phone: {home?.phone}</h4>
+          </div>
+          <p className="text-xl text-black">{home?.description}</p>
+          <div className="card-actions justify-end">
+            <button
+              className="btn bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white"
+              
+            >
+              Booking
+            </button>
+            </div>
         </div>
       </div>
         </div>
