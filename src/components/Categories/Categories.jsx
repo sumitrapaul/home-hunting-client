@@ -8,7 +8,7 @@ const Categories = () => {
 
   useEffect(() => {
     const fetchHome = async () => {
-      const response = await fetch("https://home-hunting-server.vercel.app/allHomes");
+      const response = await fetch("http://localhost:5000/allHomes");
       const data = await response.json();
       setHomes(data);
     };

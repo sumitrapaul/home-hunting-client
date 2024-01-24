@@ -7,38 +7,61 @@ const Details = () => {
   const { _id } = useParams();
   const [home, setHome] = useState(null);
   useEffect(() => {
-    fetch(`https://home-hunting-server.vercel.app/homedetails/${_id}`)
+    fetch(`http://localhost:5000/homedetails/${_id}`)
       .then((res) => res.json())
       .then((data) => {
         setHome(data);
       });
   }, [_id]);
 
-  const handleBooking = () => {
+  const handleBooking = (data) => {
     const userEmail = localStorage.getItem("userEmail");
-
-    fetch("https://home-hunting-server.vercel.app/booking", {
+    const userName = localStorage.getItem("userName");
+    const userPhone = localStorage.getItem("userPhone");
+    const userRole = localStorage.getItem("userRole");
+    const sender ={userEmail,userName,userPhone,userRole, _id}
+    console.log(sender)
+    fetch(`http://localhost:5000/booking/${_id}`, {
       method: "POST",
       headers: {
         "content-type": "application/json",
       },
-      body: JSON.stringify({
-        houseId: _id,
-        name: name,
-        email: userEmail,
-      }),
+      body: JSON.stringify({sender}),
+      
     })
-      .then((res) => res.json())
+    .then((res) => res.json())
       .then((data) => {
-        Swal.fire({
-          position: "top-end",
-          icon: "success",
-          title: "Home booking successfully",
-          showConfirmButton: false,
-          timer: 1500,
-        });
-        Navigate("/");
-      });
+       
+        if(data.role == 'House Owner'){
+          console.log(data.role)
+          Swal.fire({
+            position: "top-end",
+            icon: "error",
+            title: "Home owner can not booking",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }else if(data.length >= 2){
+          Swal.fire({
+            position: "top-end",
+            icon: "error",
+            title: "More than two doesn't booking",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }else{
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "Home booking successfully",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          Navigate("/");
+        }
+       
+      })
+     
   };
 
   return (

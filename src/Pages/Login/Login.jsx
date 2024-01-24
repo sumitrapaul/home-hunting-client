@@ -14,7 +14,7 @@ const Login = () => {
 const navigate = useNavigate()
      
     const onSubmit = (data) => {
-         fetch("https://home-hunting-server.vercel.app/login", {
+         fetch("http://localhost:5000/login", {
               method: "POST",
               headers: {
                 "content-type": "application/json",

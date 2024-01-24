@@ -6,11 +6,12 @@ import Swal from "sweetalert2";
 const AllHomes = () => {
   const [homes, setHomes] = useState([]);
   const [loaded, setLoaded] = useState([]);
+  const [isMounted, setIsMounted] = useState(true)
   const userEmail = localStorage.getItem("userEmail");
-  
+
   useEffect(() => {
     const fetchHome = () => {
-      fetch("https://home-hunting-server.vercel.app/allHomes", {
+      fetch("http://localhost:5000/allHomes", {
         headers: {
           Authorization: `Bearer ${userEmail}`,
         },
@@ -24,35 +25,36 @@ const AllHomes = () => {
     fetchHome();
   }, [userEmail]);
 
+  const handleDelete = (_id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        fetch(`http://localhost:5000/deleteHome/${_id}`, {
+          method: "DELETE",
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            // console.log(data)
+            if(isMounted){
+            if (data.deletedCount > 0) {
+              Swal.fire("Your Home info has been deleted.", "success");
 
-    const handleDelete = (_id) => {
-    
-        Swal.fire({
-          title: "Are you sure?",
-          text: "You won't be able to revert this!",
-          icon: "warning",
-          showCancelButton: true,
-          confirmButtonColor: "#3085d6",
-          cancelButtonColor: "#d33",
-          confirmButtonText: "Yes, delete it!",
-        }).then((result) => {
-          if (result.isConfirmed) {
-            fetch(`https://home-hunting-server.vercel.app/deleteHome/${_id}`, {
-              method: "DELETE",
-            })
-              .then((res) => res.json())
-              .then((data) => {
-                // console.log(data)
-                if (data.deletedCount > 0) {
-                  Swal.fire("Your Home info has been deleted.", "success");
-    
-                  const remaining = homes.filter((h) => h._id !== _id);
-                  setHomes(remaining);
-                }
-              });
+              const remaining = homes.filter((h) => h._id !== _id);
+              setHomes(remaining);
+            }
           }
-        });
-      };
+          });
+        
+      }
+    });
+  };
 
   return (
     <div>
@@ -79,7 +81,12 @@ const AllHomes = () => {
             {homes
               .filter((home) => home.userEmail === userEmail)
               .map((home, i) => (
-                <AllHome key={home._id} home={home} i={i + 1} handleDelete={handleDelete}></AllHome>
+                <AllHome
+                  key={home._id}
+                  home={home}
+                  i={i + 1}
+                  handleDelete={handleDelete}
+                ></AllHome>
               ))}
           </tbody>
         </table>

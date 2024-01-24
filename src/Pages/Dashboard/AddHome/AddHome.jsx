@@ -18,7 +18,7 @@ const AddHome = () => {
       const onSubmit = (result) => {
         const userEmail = localStorage.getItem('userEmail')
         const dataSend={...result, userEmail}
-        fetch("https://home-hunting-server.vercel.app/addHome", {
+        fetch("http://localhost:5000/addHome", {
           method: "POST",
           headers: {
             "content-type": "application/json",

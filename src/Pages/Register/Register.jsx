@@ -12,7 +12,7 @@ const Register = () => {
   const navigate = useNavigate();
 
   const onSubmit = (data) => {
-    fetch("https://home-hunting-server.vercel.app/register", {
+    fetch("http://localhost:5000/register", {
       method: "POST",
       headers: {
         "content-type": "application/json",

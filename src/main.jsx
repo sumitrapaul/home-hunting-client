@@ -27,7 +27,7 @@ const router = createBrowserRouter([
         path: "/home/:_id",
         element: <PrivateRoute><Details></Details></PrivateRoute>,
         loader: ({ params }) =>
-          `https://home-hunting-server.vercel.app/homedetails/${params._id}`,
+          `http://localhost:5000/homedetails/${params._id}`,
       },
       {
         path: "/login",
@@ -54,7 +54,7 @@ const router = createBrowserRouter([
       {
         path: "updateHome/:id",
         element: <UpdateHome></UpdateHome>,
-        loader: ({ params }) => fetch (`https://home-hunting-server.vercel.app/updateHome/${params.id}`),
+        loader: ({ params }) => fetch (`http://localhost:5000/updateHome/${params.id}`),
       },
       {
         path: "booking",
